@@ -1,0 +1,37 @@
+# DiT ImageNet-100 Configuration
+
+dataset:
+  train_dir: archive/train
+  val_dir: archive/val
+  test_dir: archive/test
+  labels: Labels.json
+  cache_dir: latents  # Pre-encoded latents cache directory
+  num_classes: 100
+  image_size: 256
+  
+vae:
+  model_id: stabilityai/sd-vae-ft-mse
+  latent_channels: 4
+  latent_size: 32 # 256 / 8
+
+model:
+  model_type: DiT-B
+  patch_size: 4
+  hidden_dim: 768
+  depth: 12
+  num_heads: 12
+  
+training:
+  batch_size: 256
+  learning_rate: 1.0e-4
+  weight_decay: 0.03
+  epochs: 100
+  checkpoint_dir: outputs/checkpoints
+  log_dir: outputs/logs
+  mixed_precision: "bf16" # "no", "fp16", "bf16"
+  seed: 42
+  
+sampling:
+  num_steps: 50
+  cfg_scale: 4.0
+  samples_dir: outputs/samples
